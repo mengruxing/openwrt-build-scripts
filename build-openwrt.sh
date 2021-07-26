@@ -217,13 +217,27 @@ index 9a65bfa..5bf58f4 100644
 EOF
 cd -
 
-# .config
+# default.config
 cat > ./.config << EOF
 CONFIG_TARGET_x86=y
 CONFIG_TARGET_x86_64=y
 CONFIG_TARGET_x86_64_DEVICE_generic=y
 # CONFIG_GRUB_CONSOLE is not set
-CONFIG_ISO_IMAGES=y
+# CONFIG_VMDK_IMAGES is not set
+EOF
+
+make defconfig
+make -j8 download
+make -j$(nproc) || make -j1 V=s
+
+rm -rf bin/targets
+
+# custom.config
+cat > ./.config << EOF
+CONFIG_TARGET_x86=y
+CONFIG_TARGET_x86_64=y
+CONFIG_TARGET_x86_64_DEVICE_generic=y
+# CONFIG_GRUB_CONSOLE is not set
 # CONFIG_PACKAGE_autosamba is not set
 CONFIG_PACKAGE_boost=y
 CONFIG_PACKAGE_boost-date_time=y
@@ -287,9 +301,7 @@ CONFIG_PACKAGE_trojan=y
 CONFIG_PACKAGE_v2ray-plugin=y
 # CONFIG_PACKAGE_vsftpd-alt is not set
 # CONFIG_PACKAGE_wsdd2 is not set
-CONFIG_QCOW2_IMAGES=y
-CONFIG_VDI_IMAGES=y
-CONFIG_VHDX_IMAGES=y
+# CONFIG_VMDK_IMAGES is not set
 CONFIG_boost-compile-visibility-hidden=y
 CONFIG_boost-runtime-shared=y
 CONFIG_boost-static-and-shared-libs=y
