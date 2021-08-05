@@ -43,7 +43,7 @@ index 1a047eb37..9eb42167b 100755
  		add_list system.ntp.server='cn.pool.ntp.org'
  	EOF
 diff --git a/package/lean/default-settings/files/zzz-default-settings b/package/lean/default-settings/files/zzz-default-settings
-index a6e6fa618..208cce36c 100755
+index 05c58be32..f0a1f67a8 100755
 --- a/package/lean/default-settings/files/zzz-default-settings
 +++ b/package/lean/default-settings/files/zzz-default-settings
 @@ -7,9 +7,6 @@ uci set system.@system[0].timezone=CST-8
@@ -56,12 +56,13 @@ index a6e6fa618..208cce36c 100755
  rm -f /usr/lib/lua/luci/view/admin_status/index/mwan.htm
  rm -f /usr/lib/lua/luci/view/admin_status/index/upnp.htm
  rm -f /usr/lib/lua/luci/view/admin_status/index/ddns.htm
-@@ -30,11 +27,12 @@ sed -i 's/services/nas/g'  /usr/lib/lua/luci/view/minidlna_status.htm
+@@ -29,12 +26,11 @@ sed -i 's/services/nas/g'  /usr/lib/lua/luci/view/minidlna_status.htm
+ 
  ln -sf /sbin/ip /usr/bin/ip
  
- sed -i 's#downloads.openwrt.org#mirrors.cloud.tencent.com/lede#g' /etc/opkg/distfeeds.conf
+-sed -i 's#downloads.openwrt.org#mirrors.cloud.tencent.com/lede#g' /etc/opkg/distfeeds.conf
 -sed -i 's/root::0:0:99999:7:::/root:\$1\$V4UetPzk\$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/g' /etc/shadow
- 
+-
  sed -i "s/# //g" /etc/opkg/distfeeds.conf
  sed -i '/openwrt_luci/ { s/snapshots/releases\/18.06.9/g; }'  /etc/opkg/distfeeds.conf
  
