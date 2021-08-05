@@ -2,8 +2,12 @@
 
 set -ex
 
-project_name=`date +lede-%Y%m%d-%H%M`
-git clone https://github.com/coolsnowwolf/lede.git ${project_name} && cd ${project_name}
+# project_name=`date +lede-%Y%m%d-%H%M`
+# git clone https://github.com/coolsnowwolf/lede.git ${project_name} && cd ${project_name}
+
+rm -rf lede
+git clone https://github.com/coolsnowwolf/lede.git
+cd lede
 
 # lede.patch
 git apply << EOF
@@ -217,13 +221,29 @@ index 9a65bfa..5bf58f4 100644
 EOF
 cd -
 
-# .config
+# default.config
 cat > ./.config << EOF
 CONFIG_TARGET_x86=y
 CONFIG_TARGET_x86_64=y
 CONFIG_TARGET_x86_64_DEVICE_generic=y
 # CONFIG_GRUB_CONSOLE is not set
-CONFIG_ISO_IMAGES=y
+# CONFIG_VMDK_IMAGES is not set
+EOF
+
+make defconfig
+make -j8 download
+make -j$(nproc) || make -j1 V=s
+
+rm -rf bin/targets
+
+# custom.config
+cat > ./.config << EOF
+CONFIG_TARGET_x86=y
+CONFIG_TARGET_x86_64=y
+CONFIG_TARGET_x86_64_DEVICE_generic=y
+# CONFIG_GRUB_CONSOLE is not set
+# CONFIG_PACKAGE_UnblockNeteaseMusic-Go is not set
+# CONFIG_PACKAGE_adbyby is not set
 # CONFIG_PACKAGE_autosamba is not set
 CONFIG_PACKAGE_boost=y
 CONFIG_PACKAGE_boost-date_time=y
@@ -231,6 +251,7 @@ CONFIG_PACKAGE_boost-program_options=y
 CONFIG_PACKAGE_boost-system=y
 CONFIG_PACKAGE_ca-certificates=y
 # CONFIG_PACKAGE_coremark is not set
+CONFIG_PACKAGE_ip6tables=y
 CONFIG_PACKAGE_ipt2socks=y
 # CONFIG_PACKAGE_iptables-mod-ipsec is not set
 CONFIG_PACKAGE_kcptun-client=y
@@ -244,15 +265,18 @@ CONFIG_PACKAGE_kcptun-config=y
 # CONFIG_PACKAGE_kmod-ipsec is not set
 # CONFIG_PACKAGE_kmod-ipt-ipsec is not set
 # CONFIG_PACKAGE_kmod-iptunnel6 is not set
+# CONFIG_PACKAGE_kmod-nf-conntrack-netlink is not set
 CONFIG_PACKAGE_libatomic=y
 CONFIG_PACKAGE_libevent2=y
 # CONFIG_PACKAGE_libgmp is not set
+# CONFIG_PACKAGE_luci-app-adbyby-plus is not set
 # CONFIG_PACKAGE_luci-app-arpbind is not set
 # CONFIG_PACKAGE_luci-app-autoreboot is not set
 # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_btrfs_progs is not set
 # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_lsblk is not set
 # CONFIG_PACKAGE_luci-app-filetransfer is not set
 # CONFIG_PACKAGE_luci-app-ipsec-vpnd is not set
+# CONFIG_PACKAGE_luci-app-nlbwmon is not set
 # CONFIG_PACKAGE_luci-app-qbittorrent is not set
 # CONFIG_PACKAGE_luci-app-ramfree is not set
 # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_fuse-utils is not set
@@ -266,6 +290,8 @@ CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks_Rust_Client=y
 CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks_Rust_Server=y
 CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan=y
 CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray_Plugin=y
+# CONFIG_PACKAGE_luci-app-unblockmusic is not set
+# CONFIG_PACKAGE_luci-app-unblockmusic_INCLUDE_UnblockNeteaseMusic_Go is not set
 # CONFIG_PACKAGE_luci-app-uugamebooster is not set
 # CONFIG_PACKAGE_luci-app-vsftpd is not set
 # CONFIG_PACKAGE_luci-app-xlnetacc is not set
@@ -273,8 +299,11 @@ CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray_Plugin=y
 # CONFIG_PACKAGE_luci-proto-bonding is not set
 CONFIG_PACKAGE_luci-proto-ipv6=y
 CONFIG_PACKAGE_naiveproxy=y
+# CONFIG_PACKAGE_nlbwmon is not set
 CONFIG_PACKAGE_odhcp6c=y
 CONFIG_PACKAGE_odhcp6c_ext_cer_id=0
+CONFIG_PACKAGE_odhcpd=y
+CONFIG_PACKAGE_odhcpd_full_ext_cer_id=0
 # CONFIG_PACKAGE_proto-bonding is not set
 # CONFIG_PACKAGE_qBittorrent-static is not set
 CONFIG_PACKAGE_redsocks2=y
@@ -287,9 +316,8 @@ CONFIG_PACKAGE_trojan=y
 CONFIG_PACKAGE_v2ray-plugin=y
 # CONFIG_PACKAGE_vsftpd-alt is not set
 # CONFIG_PACKAGE_wsdd2 is not set
-CONFIG_QCOW2_IMAGES=y
-CONFIG_VDI_IMAGES=y
-CONFIG_VHDX_IMAGES=y
+# CONFIG_UNBLOCKNETEASEMUSIC_GO_COMPRESS_UPX is not set
+# CONFIG_VMDK_IMAGES is not set
 CONFIG_boost-compile-visibility-hidden=y
 CONFIG_boost-runtime-shared=y
 CONFIG_boost-static-and-shared-libs=y
