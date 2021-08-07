@@ -25,26 +25,18 @@
 ## 自定义功能
 ```
 
-# 基础配置
-
-Target Images
-    Build LiveCD image (ISO)
-    Build PVE/KVM image files (QCOW2)
-    Build VirtualBox image files (VDI)
-    Build Hyper-V image files (VHDX)
-    Build VMware image files (VMDK)
-
-
-# 删除部分
+# 去除的功能
 
 Target Image
     Use Console Terminal
+    Build VMware image files (VMDK)
 
 Extra packages
     autosamba
 
 LuCI
     3. Applications
+        luci-app-adbyby-plus
         luci-app-arpbind
         luci-app-autoreboot
         luci-app-diskman
@@ -52,6 +44,7 @@ LuCI
             Include lsblk
         luci-app-filetransfer
         luci-app-ipsec-vpnc
+        luci-app-nlbwmon
         luci-app-qbittorrent
         luci-app-ramfree
         luci-app-rclone
@@ -59,6 +52,8 @@ LuCI
             Include rclone-ng
             Include fuse-utils
         luci-app-samba
+        luci-app-unblockmusic
+            UnblockNeteaseMusic Golang Version
         luci-app-uugamebooster
         luci-app-vsftpd
         luci-app-xlnetacc
@@ -68,8 +63,15 @@ LuCI
 Utilities
     coremark
 
+Multimedia
+    Compress executable files with UPX
 
-# 增加部分
+
+
+# 增加的功能
+
+Extra packages
+    ipv6helper
 
 LuCI
     3. Applications
@@ -81,12 +83,21 @@ LuCI
             Include Shadowsocks Rust Server
             Include Trojan
             Include Shadowsocks V2ray Plugin
-    5. Protocols
-        luci-proto-ipv6
 
-Network
-    odhcp6c
 ```
 
+你可以根据自己的需求，在`build-openwrt.sh`文件中修改
 
-你可以根据自己的需求来修改里面的内容
+## 菜单顺序调整
+
+```
+ShadowdocksR Plus+          10
+广告屏蔽大师 Plus+          9 -> 11
+解锁网易云灰色歌曲		    50 -> 20
+上网时间控制			    30
+ZeroTier                    40*
+动态 DNS                    59
+UPnP                        none -> 60 (luci)
+KMS 服务器                  100 -> 80
+网络唤醒				    90
+```
