@@ -243,6 +243,7 @@ CONFIG_TARGET_x86=y
 CONFIG_TARGET_x86_64=y
 CONFIG_TARGET_x86_64_DEVICE_generic=y
 # CONFIG_GRUB_CONSOLE is not set
+CONFIG_PACKAGE_6in4=y
 # CONFIG_PACKAGE_UnblockNeteaseMusic-Go is not set
 # CONFIG_PACKAGE_adbyby is not set
 # CONFIG_PACKAGE_autosamba is not set
@@ -255,6 +256,7 @@ CONFIG_PACKAGE_ca-certificates=y
 CONFIG_PACKAGE_ip6tables=y
 CONFIG_PACKAGE_ipt2socks=y
 # CONFIG_PACKAGE_iptables-mod-ipsec is not set
+CONFIG_PACKAGE_ipv6helper=y
 CONFIG_PACKAGE_kcptun-client=y
 CONFIG_PACKAGE_kcptun-config=y
 # CONFIG_PACKAGE_kmod-bonding is not set
@@ -265,8 +267,12 @@ CONFIG_PACKAGE_kcptun-config=y
 # CONFIG_PACKAGE_kmod-crypto-md5 is not set
 # CONFIG_PACKAGE_kmod-ipsec is not set
 # CONFIG_PACKAGE_kmod-ipt-ipsec is not set
+CONFIG_PACKAGE_kmod-ipt-nat6=y
+CONFIG_PACKAGE_kmod-iptunnel=y
 # CONFIG_PACKAGE_kmod-iptunnel6 is not set
 # CONFIG_PACKAGE_kmod-nf-conntrack-netlink is not set
+CONFIG_PACKAGE_kmod-nf-nat6=y
+CONFIG_PACKAGE_kmod-sit=y
 CONFIG_PACKAGE_libatomic=y
 CONFIG_PACKAGE_libevent2=y
 # CONFIG_PACKAGE_libgmp is not set
@@ -303,8 +309,8 @@ CONFIG_PACKAGE_naiveproxy=y
 # CONFIG_PACKAGE_nlbwmon is not set
 CONFIG_PACKAGE_odhcp6c=y
 CONFIG_PACKAGE_odhcp6c_ext_cer_id=0
-CONFIG_PACKAGE_odhcpd=y
-CONFIG_PACKAGE_odhcpd_full_ext_cer_id=0
+CONFIG_PACKAGE_odhcpd-ipv6only=y
+CONFIG_PACKAGE_odhcpd_ipv6only_ext_cer_id=0
 # CONFIG_PACKAGE_proto-bonding is not set
 # CONFIG_PACKAGE_qBittorrent-static is not set
 CONFIG_PACKAGE_redsocks2=y
