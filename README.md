@@ -91,13 +91,13 @@ LuCI
 ## 菜单顺序调整
 
 ```
-ShadowdocksR Plus+          10
-广告屏蔽大师 Plus+          9 -> 11
-解锁网易云灰色歌曲		    50 -> 20
-上网时间控制			    30
-ZeroTier                    40*
-动态 DNS                    59
-UPnP                        none -> 60 (luci)
-KMS 服务器                  100 -> 80
-网络唤醒				    90
+ShadowdocksR Plus+      10
+广告屏蔽大师 Plus+      9 -> 11
+解锁网易云灰色歌曲      50 -> 20
+上网时间控制            30
+ZeroTier                40*
+动态 DNS                59
+UPnP                    none -> 60 (luci)
+KMS 服务器              100 -> 80
+网络唤醒                90
 ```
