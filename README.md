@@ -33,6 +33,9 @@ Target Image
     Use Console Terminal
     Build VMware image files (VMDK)
 
+Global build settings
+    Enable IPv6 support in packages <如果不需要IPV6的话>
+
 Extra packages
     autosamba
 
@@ -73,7 +76,7 @@ Multimedia
 # 增加的功能
 
 Extra packages
-    ipv6helper
+    ipv6helper <如果需要IPV6的话>
 
 LuCI
     3. Applications
