@@ -237,45 +237,32 @@ make -j$(nproc) || make -j1 V=s
 
 rm -rf bin/targets
 
+typeset -l build_ipv6=${1}
+if [[ "${build_ipv6}" == *ipv6* ]]
+then
+CONFIG_IPV6=$(cat << EOF
+CONFIG_PACKAGE_ipv6helper=y
+EOF
+)
+else
+CONFIG_IPV6=$(cat << EOF
+# CONFIG_BUSYBOX_DEFAULT_FEATURE_IPV6 is not set
+# CONFIG_IPV6 is not set
+# CONFIG_KERNEL_IPV6 is not set
+EOF
+)
+fi
+
 # custom.config
 cat > ./.config << EOF
 CONFIG_TARGET_x86=y
 CONFIG_TARGET_x86_64=y
 CONFIG_TARGET_x86_64_DEVICE_generic=y
 # CONFIG_GRUB_CONSOLE is not set
-CONFIG_PACKAGE_6in4=y
-# CONFIG_PACKAGE_UnblockNeteaseMusic-Go is not set
-# CONFIG_PACKAGE_adbyby is not set
+# CONFIG_VMDK_IMAGES is not set
+${CONFIG_IPV6}
 # CONFIG_PACKAGE_autosamba is not set
-CONFIG_PACKAGE_boost=y
-CONFIG_PACKAGE_boost-date_time=y
-CONFIG_PACKAGE_boost-program_options=y
-CONFIG_PACKAGE_boost-system=y
-CONFIG_PACKAGE_ca-certificates=y
 # CONFIG_PACKAGE_coremark is not set
-CONFIG_PACKAGE_ip6tables=y
-CONFIG_PACKAGE_ipt2socks=y
-# CONFIG_PACKAGE_iptables-mod-ipsec is not set
-CONFIG_PACKAGE_ipv6helper=y
-CONFIG_PACKAGE_kcptun-client=y
-CONFIG_PACKAGE_kcptun-config=y
-# CONFIG_PACKAGE_kmod-bonding is not set
-# CONFIG_PACKAGE_kmod-crypto-cbc is not set
-# CONFIG_PACKAGE_kmod-crypto-deflate is not set
-# CONFIG_PACKAGE_kmod-crypto-des is not set
-# CONFIG_PACKAGE_kmod-crypto-echainiv is not set
-# CONFIG_PACKAGE_kmod-crypto-md5 is not set
-# CONFIG_PACKAGE_kmod-ipsec is not set
-# CONFIG_PACKAGE_kmod-ipt-ipsec is not set
-CONFIG_PACKAGE_kmod-ipt-nat6=y
-CONFIG_PACKAGE_kmod-iptunnel=y
-# CONFIG_PACKAGE_kmod-iptunnel6 is not set
-# CONFIG_PACKAGE_kmod-nf-conntrack-netlink is not set
-CONFIG_PACKAGE_kmod-nf-nat6=y
-CONFIG_PACKAGE_kmod-sit=y
-CONFIG_PACKAGE_libatomic=y
-CONFIG_PACKAGE_libevent2=y
-# CONFIG_PACKAGE_libgmp is not set
 # CONFIG_PACKAGE_luci-app-adbyby-plus is not set
 # CONFIG_PACKAGE_luci-app-arpbind is not set
 # CONFIG_PACKAGE_luci-app-autoreboot is not set
@@ -302,33 +289,8 @@ CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray_Plugin=y
 # CONFIG_PACKAGE_luci-app-uugamebooster is not set
 # CONFIG_PACKAGE_luci-app-vsftpd is not set
 # CONFIG_PACKAGE_luci-app-xlnetacc is not set
-# CONFIG_PACKAGE_luci-lib-fs is not set
 # CONFIG_PACKAGE_luci-proto-bonding is not set
-CONFIG_PACKAGE_luci-proto-ipv6=y
-CONFIG_PACKAGE_naiveproxy=y
-# CONFIG_PACKAGE_nlbwmon is not set
-CONFIG_PACKAGE_odhcp6c=y
-CONFIG_PACKAGE_odhcp6c_ext_cer_id=0
-CONFIG_PACKAGE_odhcpd-ipv6only=y
-CONFIG_PACKAGE_odhcpd_ipv6only_ext_cer_id=0
-# CONFIG_PACKAGE_proto-bonding is not set
-# CONFIG_PACKAGE_qBittorrent-static is not set
-CONFIG_PACKAGE_redsocks2=y
-# CONFIG_PACKAGE_samba36-server is not set
-CONFIG_PACKAGE_shadowsocks-rust-sslocal=y
-CONFIG_PACKAGE_shadowsocks-rust-ssserver=y
-# CONFIG_PACKAGE_strongswan is not set
-CONFIG_PACKAGE_trojan=y
-# CONFIG_PACKAGE_uugamebooster is not set
-CONFIG_PACKAGE_v2ray-plugin=y
-# CONFIG_PACKAGE_vsftpd-alt is not set
-# CONFIG_PACKAGE_wsdd2 is not set
 # CONFIG_UNBLOCKNETEASEMUSIC_GO_COMPRESS_UPX is not set
-# CONFIG_VMDK_IMAGES is not set
-CONFIG_boost-compile-visibility-hidden=y
-CONFIG_boost-runtime-shared=y
-CONFIG_boost-static-and-shared-libs=y
-CONFIG_boost-variant-release=y
 EOF
 
 make defconfig
